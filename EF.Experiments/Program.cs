@@ -1,4 +1,5 @@
 ﻿using System;
+using EF.Experiments.Data;
 
 namespace EF.Experiments
 {
@@ -6,6 +7,7 @@ namespace EF.Experiments
     {
         static void Main(string[] args)
         {
+            var dbContext = new BloggingContext();
             Console.WriteLine("Hello World!");
         }
     }

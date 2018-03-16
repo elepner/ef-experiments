@@ -1,8 +1,8 @@
-﻿namespace EF.Experiments.Data
+﻿namespace EF.Experiments.Data.Data
 {
     public class Author
     {
-        public int AuthorId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
     }

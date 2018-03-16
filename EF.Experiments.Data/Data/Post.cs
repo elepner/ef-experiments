@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace EF.Experiments.Data
+namespace EF.Experiments.Data.Data
 {
     public class Post
     {
+        public int Id { get; set; }
+
         [StringLength(128)]
         public string Title { get; set; }
         public string Content { get; set; }
@@ -15,6 +17,6 @@ namespace EF.Experiments.Data
         public int AuthorId { get; set; }
         public Author Author { get; set; }
 
-        public List<Tag> Tags { get; set; }
+        public List<PostTag> PostTags { get; set; }
     }
 }
