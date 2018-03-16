@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EF.Experiments.Data.Data
@@ -17,6 +18,9 @@ namespace EF.Experiments.Data.Data
         public int AuthorId { get; set; }
         public Author Author { get; set; }
 
+        public int? Rating { get; set; }
+
+        public DateTime Created { get; set; }
         public List<PostTag> PostTags { get; set; }
     }
 }
