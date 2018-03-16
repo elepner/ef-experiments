@@ -1,10 +1,15 @@
 ﻿using EF.Experiments.Data.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace EF.Experiments.Data
 {
     public class BloggingContext : DbContext
     {
+        private static readonly LoggerFactory ConsoleLoggerFactory =
+            new LoggerFactory(new[] {new ConsoleLoggerProvider((_, __) => true, true)});
+
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Author> Authors { get; set; }
@@ -13,6 +18,7 @@ namespace EF.Experiments.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; initial catalog = EFExperiments");
+            optionsBuilder.UseLoggerFactory(ConsoleLoggerFactory);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,5 +36,7 @@ namespace EF.Experiments.Data
                 .HasForeignKey(pt => pt.TagId);
         }
 
+
     }
+    
 }
