@@ -1,10 +1,6 @@
-﻿using System.Linq.Expressions;
-using System.Reflection;
-using EF.Experiments.Data.Data;
+﻿using EF.Experiments.Data.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
-using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 
@@ -45,41 +41,5 @@ namespace EF.Experiments.Data
         }
 
 
-    }
-
-    public class CustomSqlMethodCallTranslator : SqlServerCompositeMethodCallTranslator
-    {
-        public CustomSqlMethodCallTranslator(RelationalCompositeMethodCallTranslatorDependencies dependencies) : base(dependencies)
-        {
-            // ReSharper disable once VirtualMemberCallInConstructor
-            AddTranslators(new [] {new FreeTextTranslator() });
-        }
-
-        public override Expression Translate(MethodCallExpression methodCallExpression, IModel model)
-        {
-            return base.Translate(methodCallExpression, model);
-        }
-    }
-
-    public class FreeTextTranslator : IMethodCallTranslator
-    {
-        private static readonly MethodInfo _methodInfo
-            = typeof(StringExt).GetRuntimeMethod(nameof(StringExt.ContainsText), new[] {typeof(string)});
-
-        public Expression Translate(MethodCallExpression methodCallExpression)
-        {
-            if (methodCallExpression.Method != _methodInfo) return null;
-
-            var patternExpression = methodCallExpression.Arguments[0];
-            var patternConstantExpression = patternExpression as ConstantExpression;
-            return null;
-        }
-    }
-    public static class StringExt
-    {
-        public static bool ContainsText(this string text, string sub)
-        {
-            return text.Contains(sub);
-        }
     }
 }
