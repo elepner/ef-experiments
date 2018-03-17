@@ -9,13 +9,10 @@ namespace EF.Experiments.Data
     {
         public CustomSqlMethodCallTranslator(RelationalCompositeMethodCallTranslatorDependencies dependencies) : base(dependencies)
         {
+            
             // ReSharper disable once VirtualMemberCallInConstructor
             AddTranslators(new [] {new FreeTextTranslator() });
         }
-
-        public override Expression Translate(MethodCallExpression methodCallExpression, IModel model)
-        {
-            return base.Translate(methodCallExpression, model);
-        }
+        
     }
 }
