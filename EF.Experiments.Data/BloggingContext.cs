@@ -1,4 +1,5 @@
-﻿using EF.Experiments.Data.Data;
+﻿using System;
+using EF.Experiments.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
 using Microsoft.Extensions.Logging;
@@ -40,6 +41,18 @@ namespace EF.Experiments.Data
                 .HasForeignKey(pt => pt.TagId);
         }
 
+        public override int SaveChanges()
+        {
+            foreach (var entityEntry in ChangeTracker.Entries())
+            {
+                if(!(entityEntry.Entity is Post post)) continue;
 
+                if (entityEntry.State == EntityState.Added)
+                {
+                    post.Created = DateTime.Now;
+                }
+            }
+            return base.SaveChanges();
+        }
     }
 }
