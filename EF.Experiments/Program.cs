@@ -12,7 +12,7 @@ namespace EF.Experiments
         static BloggingContext dbContext = new BloggingContext();
         static void Main(string[] args)
         {
-            //Seeder.Seed();
+            Seeder.Seed();
 
             var query = dbContext.Authors.Include(x => x.Posts).Select(x => new ViewModels.Author
             {
@@ -29,6 +29,8 @@ namespace EF.Experiments
             var john = dbContext.Authors.First(x => x.LastName == "Doe");
             var post = dbContext.Posts.Where(x => x.Title == "John Second Post Title").Include(x => x.Author).First();
             Console.WriteLine(post.Author == john);
+
+            var textContains = dbContext.Posts.Where(x => !x.Content.ContainsText("egg")).ToArray();
         }
     }
 }

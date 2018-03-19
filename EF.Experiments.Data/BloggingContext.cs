@@ -2,6 +2,7 @@
 using EF.Experiments.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
+using Microsoft.EntityFrameworkCore.Query.Sql;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 
@@ -19,8 +20,9 @@ namespace EF.Experiments.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("data source=localhost,1433;initial catalog=EFExperiments;persist security info=True;user id=SA;password=yourStrong0Password");
+            optionsBuilder.UseSqlServer("data source=localhost,14333;initial catalog=EFExperiments;persist security info=True;user id=SA;password=yourStrong0Password");
             optionsBuilder.ReplaceService<ICompositeMethodCallTranslator, CustomSqlMethodCallTranslator>();
+            optionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, CustomSqlServerGeneratorFacotry>();
             optionsBuilder.UseLoggerFactory(ConsoleLoggerFactory);
         }
 
