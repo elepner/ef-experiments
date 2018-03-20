@@ -8,6 +8,7 @@ namespace EF.Experiments.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql("CREATE FULLTEXT CATALOG ftCatalog AS DEFAULT");
             migrationBuilder.Sql("CREATE FULLTEXT INDEX ON POSTS (Content Language 1033 ) KEY INDEX PK_Posts", true);
         }
 
