@@ -22,5 +22,10 @@ namespace EF.Experiments.Data.Data
 
         public DateTime Created { get; set; }
         public List<PostTag> PostTags { get; set; }
+
+        public override string ToString()
+        {
+            return $"PostId: ${Id}; Title: {Title}; AuthorId ${AuthorId}";
+        }
     }
 }
