@@ -20,7 +20,8 @@ namespace EF.Experiments.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("data source=localhost,14333;initial catalog=EFExperiments;persist security info=True;user id=SA;password=yourStrong0Password");
+            optionsBuilder.UseSqlServer("data source=localhost,14333;initial catalog=EFExperiments;persist security info=True;user id=SA;password=yourStrong0Password")
+                .ConfigureWarnings(wartings => wartings.Throw());
             optionsBuilder.ReplaceService<ICompositeMethodCallTranslator, CustomSqlMethodCallTranslator>();
             optionsBuilder.ReplaceService<IQuerySqlGeneratorFactory, CustomSqlServerGeneratorFacotry>();
             optionsBuilder.UseLoggerFactory(ConsoleLoggerFactory);
