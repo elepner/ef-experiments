@@ -68,7 +68,23 @@ namespace EF.Experiments.Data.Specifications
                 Expression.Lambda<Func<T, bool>>(
                     Expression.AndAlso(
                         leftExpr.Body,
-                        rightExpr)));
+                        new ParameterReplacer(rightParam, leftParam).Visit(rightExpr.Body)),
+                    leftParam));
+        }
+
+        public static Specification<T> operator |(Specification<T> left, Specification<T> right)
+        {
+            var leftExpr = left.Predicate;
+            var rightExpr = right.Predicate;
+            var leftParam = leftExpr.Parameters[0];
+            var rightParam = rightExpr.Parameters[0];
+
+            return new Specification<T>(
+                Expression.Lambda<Func<T, bool>>(
+                    Expression.OrElse(
+                        leftExpr.Body,
+                        new ParameterReplacer(rightParam, leftParam).Visit(rightExpr.Body)),
+                    leftParam));
         }
     }
 }
